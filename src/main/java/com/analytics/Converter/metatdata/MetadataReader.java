@@ -26,7 +26,7 @@ public class MetadataReader {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Metadata> readMetadata(String path) {
+	public List<Metadata> readMetadata(String path) throws MetadataException {
 
 		List<Metadata> metadataList = new ArrayList<Metadata>();
 		Metadata metadata = null;
@@ -41,10 +41,10 @@ public class MetadataReader {
 			records = CSVFormat.DEFAULT.withHeader(Headers.class).parse(in);
 		} catch (FileNotFoundException e) {
 			LOG.error(" Metadata File Not Found Error. ", e);
-			System.exit(1);
+			throw new MetadataException(" Metadata File Not Found Error. ");
 		} catch (IOException e) {
 			LOG.error(" IO Error in reading metadata file ", e);
-			System.exit(1);
+			throw new MetadataException(" IO Error in reading metadata file ");
 		}
 
 		// Read the metadata and load it to Metadata Object.
@@ -75,12 +75,12 @@ public class MetadataReader {
 		}
 
 		if (!metadataErrList.isEmpty()) {
-			LOG.error("Error in validating Metadata.");
+			LOG.error(" Error in validating Metadata.");
+			LOG.error(String.format(" Found %d errors in validating Metadata.", metadataErrList.size()));
 			for (MetadataError err : metadataErrList) {
-				LOG.error(String.format(" Found %n errors in validating Metadata.", metadataErrList.size()));
 				LOG.error(err);
-				System.exit(1);
 			}
+			throw new MetadataException(String.format(" Error in processing metadata file. Found %d errors in validating Metadata. Refer /opt/FileConverter/log/application.log for more details.", metadataErrList.size()));
 		}
 
 		return metadataList;
@@ -96,15 +96,22 @@ public class MetadataReader {
 		MetadataError mdError = null;
 		try {
 			int val = Integer.parseInt(record.get(Headers.LENGTH).trim());
-			if (val == 0) {
-				mdError = new MetadataError(record.getRecordNumber(), record.toString(),
+			if (val <= 0) {
+				mdError = new MetadataError(record.getRecordNumber(), getLine(record)  ,
 						" The column length should be greater than 0");
 			}
 		} catch (NumberFormatException e) {
-			mdError = new MetadataError(record.getRecordNumber(), record.toString(),
+			mdError = new MetadataError(record.getRecordNumber(), getLine(record),
 					" The column length is not numeric");
 		}
 		return mdError;
+	}
+	
+	private String getLine(CSVRecord record) {
+		return record.get(0) + MetadataConstants.METADATA_COLUMN_DELIMITER +
+				record.get(1) + MetadataConstants.METADATA_COLUMN_DELIMITER +
+				record.get(2);
+		
 	}
 
 	/**
