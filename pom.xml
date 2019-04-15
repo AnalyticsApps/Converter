@@ -132,7 +132,7 @@
 							Simon"</script>
 					</preInstallScriptlet>
 					<preremoveScriptlet>
-						<script>echo "Uninstalling the Cluster Setup completed" </script>
+						<script>rm -rf /opt/FileConverter/log/* &amp;&amp; echo "Uninstalling the Cluster Setup completed" </script>
 					</preremoveScriptlet>
 				</configuration>
 			</plugin>
