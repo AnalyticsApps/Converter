@@ -120,6 +120,20 @@
 							</sources>
 						</mapping>
 						<mapping>
+							<directory>${app.home}/sample</directory>
+							<filemode>777</filemode>
+							<sources>
+								<source>
+									<location>src/test/resources/converter/testcase_1/metadata.txt</location>
+								</source>
+								<source>
+									<location>src/test/resources/converter/testcase_1/input.txt</location>
+								</source>
+
+							</sources>
+						</mapping>
+
+						<mapping>
 							<directory>${app.home}/log</directory>
 							<filemode>777</filemode>
 						</mapping>
@@ -141,6 +155,33 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.0.0-M3</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+					<id>Copy Generated RPM from target/rpm/FileConverter/RPMS/noarch/FileConverter-1.0-1.noarch.rpm to RPM/FileConverter-1.0-1.noarch.rpm Directory</id>
+					<phase>package</phase>
+					<goals>
+						<goal>copy-resources</goal>
+					</goals>
+					<configuration>
+						<outputDirectory>${basedir}/RPM</outputDirectory>
+						<resources>          
+							<resource>
+								<directory>target/rpm/FileConverter/RPMS/noarch</directory>
+								<filtering>true</filtering>
+							</resource>
+						</resources>
+						<nonFilteredFileExtensions>                            
+							<nonFilteredFileExtension>rpm</nonFilteredFileExtension>
+						</nonFilteredFileExtensions>              
+					</configuration>   
+					</execution>
+				</executions>
 			</plugin>
 			
 		</plugins>
