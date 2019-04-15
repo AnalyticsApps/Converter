@@ -25,26 +25,27 @@ public class Converter {
 	private static final int BATCH_SIZE = 10000;
 	private static final Logger LOG = Logger.getLogger(Converter.class);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		LOG.info(" Initiating the File Converter");
 		
 		//Get the input details
 		Scanner in = new Scanner(System.in);
 		System.out.print("Path to metadata file: ");
-		String metaPath = in.nextLine();
-		System.out.print("Path to input file: ");
-		String inpFilePath = in.nextLine();
+		String metadataFile = in.nextLine();
+		System.out.print("Path to data file: ");
+		String dataFile = in.nextLine();
 		System.out.print("Path to Out file: ");
-		String outFilePath = in.nextLine();
+		String outFile = in.nextLine();
 		
-		LOG.debug(String.format(" Metadata Path: %s Input File Path: %s Output File Path %s", metaPath, inpFilePath,
-				outFilePath));
+		LOG.debug(String.format(" Metadata Path: %s Input File Path: %s Output File Path: %s", metadataFile, dataFile,
+				outFile));
 				
 		MetadataReader reader = new MetadataReader();
-		List<Metadata> metadataList = reader.readMetadata(metaPath);
+		List<Metadata> metadataList = reader.readMetadata(metadataFile);
+		LOG.debug(" Extracted Metadata Info: " + metadataList.toString());
 		
 		Converter inst = new Converter();
-		inst.convert(inpFilePath, metadataList, outFilePath);
+		inst.convert(dataFile, metadataList, outFile);
 		
 		LOG.info(" File conversion completed.");
 	}
@@ -52,29 +53,33 @@ public class Converter {
 	/**
 	 * Converts the input file based on metadata and writes to a file.
 	 * 
-	 * @param path
+	 * @param dataFile
 	 * @param metadataList
-	 * @param outFilePath
+	 * @param outFile
 	 */
-	public void convert(String path, List<Metadata> metadataList, String outFilePath) {
+	public void convert(String dataFile, List<Metadata> metadataList, String outFile) {
 		String line = "";
 		long index = 1;
 		boolean isFirstBatch = true;
 		// Holds the output to write to output file
 		List<String> resultset = new ArrayList<String>();
 		
-		int temp = 0;
+		boolean isFirstLoop = true;
+		StringBuffer header = new StringBuffer();
 		// Adding the column details in the output file
 		for (Metadata metadata : metadataList) {
-			if(temp == 0) {
-				resultset.add(metadata.getColName());
-				temp++;
+			if(isFirstLoop) {
+				header.append(metadata.getColName());
+				isFirstLoop = false;
 			}else {
-				resultset.add(MetadataConstants.METADATA_COLUMN_DELIMITER + metadata.getColName());
+				header.append(MetadataConstants.METADATA_COLUMN_DELIMITER + metadata.getColName());
 			}
 		}
+		resultset.add(header.toString());
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+		LOG.debug(" Resultset after adding header details: " + resultset.toString());
+		
+		try (BufferedReader br = new BufferedReader(new FileReader(dataFile))) {
 			while ((line = br.readLine()) != null) {
 				try {
 					resultset.add(transform(line, metadataList));
@@ -85,15 +90,22 @@ public class Converter {
 				// Process the data in a batch to minimize the memory footprint and helps in processing huge data file. 
 				if(index % BATCH_SIZE == 0) {
 					if(isFirstBatch) {
-						writeToFile(outFilePath, false, resultset);
+						LOG.debug(String.format(" Writing the first batch of resultset to %s", outFile));
+						writeToFile(outFile, false, resultset);
 					}else {
+						LOG.debug(String.format(" Writing the subsequent batch of resultset to %s", outFile));						
 						//Append the processed data to the output file
-						writeToFile(outFilePath, true, resultset);
+						writeToFile(outFile, true, resultset);
 					}
 					resultset.clear();
 				}					
 				index++;
 			}
+			
+			LOG.debug(String.format(" Writing the remaining resultset to %s", outFile));	
+			//Append the remaining processed data to the output file
+			writeToFile(outFile, true, resultset);
+
 		} catch (IOException e) {
 			LOG.error(" Failed to convert the file. ", e);
 			System.exit(1);
@@ -128,6 +140,8 @@ public class Converter {
 						+ getValue(line, startIndex, endIndex, dateformatInp, dateformatOut, metadata));
 			}
 		}
+		
+		LOG.debug(" Transformed Line : " + valueBuff.toString());
 		return valueBuff.toString();
 	}
 
@@ -183,13 +197,13 @@ public class Converter {
 	/**
 	 * Writes the processed data to output file
 	 * 
-	 * @param path
+	 * @param outFile
 	 * @param isAppend
 	 * @param resultset
 	 */
-	private void writeToFile(String path, boolean isAppend, List<String> resultset) {
+	private void writeToFile(String outFile, boolean isAppend, List<String> resultset) {
 		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(path, isAppend));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(outFile, isAppend));
 			for (String line : resultset) {
 				writer.write(line + MetadataConstants.ROW_DELIMITER);
 			}
