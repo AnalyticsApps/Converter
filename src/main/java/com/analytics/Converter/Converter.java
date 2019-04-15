@@ -26,15 +26,15 @@ public class Converter {
 	private static final Logger LOG = Logger.getLogger(Converter.class);
 
 	public static void main(String[] args) throws Exception{
-		System.out.println(" Initiating the File Converter");
+		LOG.info(" Initiating the File Converter");
 		
 		//Get the input details
 		Scanner in = new Scanner(System.in);
-		System.out.print("Path to metadata file: ");
+		System.out.print("\n\n Path to metadata file: ");
 		String metadataFile = in.nextLine();
-		System.out.print("Path to data file: ");
+		System.out.print("\n\n Path to data file: ");
 		String dataFile = in.nextLine();
-		System.out.print("Path to Out file: ");
+		System.out.print("\n\n Path to Out file: ");
 		String outFile = in.nextLine();
 		
 		LOG.info(String.format(" Metadata Path: %s Input File Path: %s Output File Path: %s", metadataFile, dataFile,
@@ -47,7 +47,7 @@ public class Converter {
 		Converter inst = new Converter();
 		inst.convert(dataFile, metadataList, outFile);
 		
-		System.out.print(" File conversion completed.");
+		System.out.println("\n\n File conversion completed. \n\n");
 	}
 
 	/**
