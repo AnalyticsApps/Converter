@@ -42,9 +42,9 @@ public class Metadata {
 	@Override
 	public String toString() {
 		StringBuffer retStrBuf = new StringBuffer();
-		retStrBuf.append("colName = " + this.colName);
+		retStrBuf.append("[ colName = " + this.colName);
 		retStrBuf.append(" , colLength = " + this.colLength);
-		retStrBuf.append(" , colType = " + this.colType);
+		retStrBuf.append(" , colType = " + this.colType + " ]");
 		return retStrBuf.toString();
 	}
 

@@ -65,9 +65,9 @@ public class MetadataError {
 	@Override
 	public String toString() {
 		StringBuffer retStrBuf = new StringBuffer();
-		retStrBuf.append(" Line No = " + this.lineNo);
+		retStrBuf.append("[ Line No = " + this.lineNo);
 		retStrBuf.append(" , Error Details = " + this.errorDetails);
-		retStrBuf.append(" , Line = " + this.line);
+		retStrBuf.append(" , Line = " + this.line + " ]");
 		return retStrBuf.toString();
 	}
 

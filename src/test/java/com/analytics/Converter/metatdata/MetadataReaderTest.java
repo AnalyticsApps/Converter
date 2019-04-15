@@ -6,9 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import com.analytics.Converter.metatdata.MetadataException;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.PrintStream;
 import java.util.List;
 
 class MetadataReaderTest {
@@ -25,16 +23,15 @@ class MetadataReaderTest {
 		 * Last name,15,string
 		 * Weight,5,numeric
 		 */
-		File resourcesDirectory = new File("src/test/resources/metadata/TestMetadataReaderInput_1.txt");
-		String path = resourcesDirectory.getAbsolutePath();
+		String metadataFile = new File("src/test/resources/metadata/TestMetadataReaderInput_1.txt").getAbsolutePath();
 		MetadataReader mr = new MetadataReader();
-		List<Metadata> listmr = mr.readMetadata(path);
+		List<Metadata> listmr = mr.readMetadata(metadataFile);
 
 		assertEquals(4, listmr.size());
-		assertEquals("colName = Birth date , colLength = 10 , colType = date", listmr.get(0).toString());
-		assertEquals("colName = First name , colLength = 15 , colType = string", listmr.get(1).toString());
-		assertEquals("colName = Last name , colLength = 15 , colType = string", listmr.get(2).toString());
-		assertEquals("colName = Weight , colLength = 5 , colType = numeric", listmr.get(3).toString());
+		assertEquals("[ colName = Birth date , colLength = 10 , colType = date ]", listmr.get(0).toString());
+		assertEquals("[ colName = First name , colLength = 15 , colType = string ]", listmr.get(1).toString());
+		assertEquals("[ colName = Last name , colLength = 15 , colType = string ]", listmr.get(2).toString());
+		assertEquals("[ colName = Weight , colLength = 5 , colType = numeric ]", listmr.get(3).toString());
 	}
 
 	@Test
@@ -51,13 +48,12 @@ class MetadataReaderTest {
 		 * height,234f,numeric
 		 * address,15,string
 		 */
-		File resourcesDirectory = new File("src/test/resources/metadata/TestMetadataReaderInput_2.txt");
-		String path = resourcesDirectory.getAbsolutePath();
+		String metadataFile = new File("src/test/resources/metadata/TestMetadataReaderInput_2.txt").getAbsolutePath();
 		MetadataReader mr = new MetadataReader();
 		List<Metadata> listmr = null;
 
 		try {
-			listmr = mr.readMetadata(path);
+			listmr = mr.readMetadata(metadataFile);
 		} catch (MetadataException e) {
 			assertEquals(
 					" Error in processing metadata file. Found 2 errors in validating Metadata. Refer /opt/FileConverter/log/application.log for more details.",
@@ -77,13 +73,12 @@ class MetadataReaderTest {
 		 * Last name,15,array
 		 * Weight,5,list
 		 */
-		File resourcesDirectory = new File("src/test/resources/metadata/TestMetadataReaderInput_3.txt");
-		String path = resourcesDirectory.getAbsolutePath();
+		String metadataFile = new File("src/test/resources/metadata/TestMetadataReaderInput_3.txt").getAbsolutePath();
 		MetadataReader mr = new MetadataReader();
 		List<Metadata> listmr = null;
 
 		try {
-			listmr = mr.readMetadata(path);
+			listmr = mr.readMetadata(metadataFile);
 		} catch (MetadataException e) {
 			assertEquals(
 					" Error in processing metadata file. Found 3 errors in validating Metadata. Refer /opt/FileConverter/log/application.log for more details.",
@@ -103,13 +98,12 @@ class MetadataReaderTest {
 		 * Last name,15,string
 		 * Weight,numeric
 		 */
-		File resourcesDirectory = new File("src/test/resources/metadata/TestMetadataReaderInput_4.txt");
-		String path = resourcesDirectory.getAbsolutePath();
+		String metadataFile = new File("src/test/resources/metadata/TestMetadataReaderInput_4.txt").getAbsolutePath();
 		MetadataReader mr = new MetadataReader();
 		List<Metadata> listmr = null;
 
 		try {
-			listmr = mr.readMetadata(path);
+			listmr = mr.readMetadata(metadataFile);
 		} catch (MetadataException e) {
 			assertEquals(
 					" Error in processing metadata file. Found 1 errors in validating Metadata. Refer /opt/FileConverter/log/application.log for more details.",
@@ -129,13 +123,12 @@ class MetadataReaderTest {
 		 * Last name,,string
 		 * Weight,,numeric
 		 */
-		File resourcesDirectory = new File("src/test/resources/metadata/TestMetadataReaderInput_5.txt");
-		String path = resourcesDirectory.getAbsolutePath();
+		String metadataFile = new File("src/test/resources/metadata/TestMetadataReaderInput_5.txt").getAbsolutePath();
 		MetadataReader mr = new MetadataReader();
 		List<Metadata> listmr = null;
 
 		try {
-			listmr = mr.readMetadata(path);
+			listmr = mr.readMetadata(metadataFile);
 		} catch (MetadataException e) {
 			assertEquals(
 					" Error in processing metadata file. Found 2 errors in validating Metadata. Refer /opt/FileConverter/log/application.log for more details.",
@@ -155,13 +148,12 @@ class MetadataReaderTest {
 		 * Last name,-1,string
 		 * Weight,-9,numeric
 		 */
-		File resourcesDirectory = new File("src/test/resources/metadata/TestMetadataReaderInput_6.txt");
-		String path = resourcesDirectory.getAbsolutePath();
+		String metadataFile = new File("src/test/resources/metadata/TestMetadataReaderInput_6.txt").getAbsolutePath();
 		MetadataReader mr = new MetadataReader();
 		List<Metadata> listmr = null;
 
 		try {
-			listmr = mr.readMetadata(path);
+			listmr = mr.readMetadata(metadataFile);
 		} catch (MetadataException e) {
 			assertEquals(
 					" Error in processing metadata file. Found 4 errors in validating Metadata. Refer /opt/FileConverter/log/application.log for more details.",
@@ -176,13 +168,12 @@ class MetadataReaderTest {
 		 * Test Case 7 - Invalid matadata path
 		 */
 
-		File resourcesDirectory = new File("src/test/resources/metadata/TestMetadataReaderInput.txt");
-		String path = resourcesDirectory.getAbsolutePath();
+		String metadataFile = new File("src/test/resources/metadata/TestMetadataReaderInput.txt").getAbsolutePath();
 		MetadataReader mr = new MetadataReader();
 		List<Metadata> listmr = null;
 
 		try {
-			listmr = mr.readMetadata(path);
+			listmr = mr.readMetadata(metadataFile);
 		} catch (MetadataException e) {
 			assertEquals(" Metadata File Not Found Error. ", e.getMessage());
 		}
