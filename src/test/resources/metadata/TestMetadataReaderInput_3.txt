@@ -1,0 +1,4 @@
+Birth date,10,date
+First name,15,map
+Last name,15,array
+Weight,5,list
