@@ -63,9 +63,11 @@ Click here to download the [RPM](https://github.com/AnalyticsApps/Converter/raw/
 
 <br>    
 3. Running the script
+
+
 Application will be available under /opt/FileConverter
 
-    ```
+    
         [root@testeserver ~]#
         [root@testeserver ~]# cd /opt/FileConverter/
         [root@testeserver FileConverter]#
@@ -86,7 +88,7 @@ Application will be available under /opt/FileConverter
         
         [root@hdp3test1 FileConverter]#
 
-    ```
+    
 <br>
 
 ![](image/Usage.png)
@@ -97,3 +99,12 @@ Application will be available under /opt/FileConverter
     
     ```
     ![](image/RPM_Installation.png)
+
+
+
+## Author
+
+**Nisanth Simon** - [NisanthSimon@LinkedIn]
+
+[NisanthSimon@LinkedIn]: https://au.linkedin.com/in/nisanth-simon-03b2149
+ 
