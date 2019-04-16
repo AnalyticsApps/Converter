@@ -45,7 +45,7 @@ run() {
 
 declare java_cmd=$(get_java_cmd)
 declare -r classpath="/opt/FileConverter/lib/FileConverter-1.0.jar:/opt/FileConverter/lib/commons-csv-1.6.jar:/opt/FileConverter/lib/log4j-1.2.17.jar"
-declare -r mainclass=(com.analytics.Converter.Converter)
+declare -r mainclass=(com.analytics.converter.FileConverter)
 
 run
 

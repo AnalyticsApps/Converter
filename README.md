@@ -49,7 +49,7 @@ The tool validates the metadata and then reads the fixed file and convert to csv
 
 ## Usage Instructions
 1. Build using maven 
-    ```mvn clean package```
+    ```mvn clean compile package```
 
 	Build will compile, test and generate the RPM and final RPM is copied to [RPM Directory](RPM/)
 	
@@ -62,8 +62,10 @@ Click here to download the [RPM](https://github.com/AnalyticsApps/Converter/raw/
     ![](image/RPM_Installation.png)
 
 <br>    
-3. Running the script
-<br>
+3. Running the script 
+
+<br> 
+
 After installing RPM, Application will be available under /opt/FileConverter
 
     
