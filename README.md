@@ -66,25 +66,25 @@ Click here to download the [RPM](https://github.com/AnalyticsApps/Converter/raw/
 Application will be available under /opt/FileConverter
 
     ```
-[root@testeserver ~]#
-[root@testeserver ~]# cd /opt/FileConverter/
-[root@testeserver FileConverter]#
-
-[root@testeserver FileConverter]# ls
-bin  conf  lib  log  Readme.txt  sample
-[root@testeserver FileConverter]#
-
-[root@testeserver FileConverter]# bin/Converter
-
- Path to metadata file: /opt/FileConverter/sample/metadata.txt
-
- Path to data file: /opt/FileConverter/sample/input.txt
-
- Path to Out file: /opt/inputCSV.txt
-
- File conversion completed.
-
-[root@hdp3test1 FileConverter]#
+    [root@testeserver ~]#
+    [root@testeserver ~]# cd /opt/FileConverter/
+    [root@testeserver FileConverter]#
+    
+    [root@testeserver FileConverter]# ls
+    bin  conf  lib  log  Readme.txt  sample
+    [root@testeserver FileConverter]#
+    
+    [root@testeserver FileConverter]# bin/Converter
+    
+     Path to metadata file: /opt/FileConverter/sample/metadata.txt
+    
+     Path to data file: /opt/FileConverter/sample/input.txt
+    
+     Path to Out file: /opt/inputCSV.txt
+    
+     File conversion completed.
+    
+    [root@hdp3test1 FileConverter]#
 
     ```
     ![](image/RPM_Installation.png)
