@@ -51,13 +51,47 @@ The tool validates the metadata and then reads the fixed file and convert to csv
 1. Build using maven 
     ```mvn clean package```
 
-	Build will compile, test and generate the RPM and final RPM is copied to RPM ((RPM/FileConverter-1.0-1.noarch.rpm))
+	Build will compile, test and generate the RPM and final RPM is copied to [RPM Directory](RPM/FileConverter-1.0-1.noarch.rpm)
 	
-2. Excute utility
+2. Install RPM
+Click here to download the [RPM](https://github.com/AnalyticsApps/Converter/raw/master/RPM/FileConverter-1.0-1.noarch.rpm)
     ```
     rpm -ivh FileConverter-1.0-1.noarch.rpm
     
     ```
+    ![](image/RPM_Installation.png)
+    
+3. Running the script
 
+Application will be available under /opt/FileConverter
 
+    ```
+[root@testeserver ~]#
+[root@testeserver ~]# cd /opt/FileConverter/
+[root@testeserver FileConverter]#
 
+[root@testeserver FileConverter]# ls
+bin  conf  lib  log  Readme.txt  sample
+[root@testeserver FileConverter]#
+
+[root@testeserver FileConverter]# bin/Converter
+
+ Path to metadata file: /opt/FileConverter/sample/metadata.txt
+
+ Path to data file: /opt/FileConverter/sample/input.txt
+
+ Path to Out file: /opt/inputCSV.txt
+
+ File conversion completed.
+
+[root@hdp3test1 FileConverter]#
+
+    ```
+    ![](image/RPM_Installation.png)
+
+4. Uninstalling RPM
+    ```
+    rpm -e FileConverter-1.0-1.noarch
+    
+    ```
+    ![](image/RPM_Installation.png)
