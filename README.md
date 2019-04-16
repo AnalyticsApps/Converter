@@ -60,7 +60,8 @@ Click here to download the [RPM](https://github.com/AnalyticsApps/Converter/raw/
     
     ```
     ![](image/RPM_Installation.png)
-    
+
+<br>    
 3. Running the script
 
 Application will be available under /opt/FileConverter
@@ -87,8 +88,9 @@ Application will be available under /opt/FileConverter
         [root@hdp3test1 FileConverter]#
 
     ```
+<br>
 
-    ![](image/RPM_Installation.png)
+    ![](image/Usage.png)
 
 4. Uninstalling RPM
     ```
