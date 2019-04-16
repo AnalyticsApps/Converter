@@ -63,7 +63,6 @@ Click here to download the [RPM](https://github.com/AnalyticsApps/Converter/raw/
 
 <br>    
 3. Running the script
-
 Application will be available under /opt/FileConverter
 
     ```
@@ -90,7 +89,7 @@ Application will be available under /opt/FileConverter
     ```
 <br>
 
-    ![](image/Usage.png)
+![](image/Usage.png)
 
 4. Uninstalling RPM
     ```
