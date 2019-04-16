@@ -63,9 +63,8 @@ Click here to download the [RPM](https://github.com/AnalyticsApps/Converter/raw/
 
 <br>    
 3. Running the script
-
-
-Application will be available under /opt/FileConverter
+<br>
+After installing RPM, Application will be available under /opt/FileConverter
 
     
         [root@testeserver ~]#
@@ -98,7 +97,7 @@ Application will be available under /opt/FileConverter
     rpm -e FileConverter-1.0-1.noarch
     
     ```
-    ![](image/RPM_Installation.png)
+    ![](image/RPM_Uninstallation.png)
 
 
 
